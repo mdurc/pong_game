@@ -79,14 +79,18 @@ struct ContentView: View {
     private func checkCollision() {
         if (ballPosition.y < rectPosition.y + 20 && ballPosition.y > rectPosition.y - 20 && ballPosition.x < rectPosition.x + 56 && ballPosition.x > rectPosition.x - 56){
             if (ballVelocity.y > 0){
-                ballPosition.y = rectPosition.y - 20
-                ballVelocity.y *= -1.05
-                ballVelocity.x *= 1.1
+                if (score<9){
+                    ballPosition.y = rectPosition.y - 20
+                    ballVelocity.y *= -1.05
+                    ballVelocity.x *= 1.1
+                }else{
+                    ballPosition.y = rectPosition.y - 20
+                    ballVelocity.y *= -1
+                }
                 score += 1
             }else{
                 ballPosition.y = rectPosition.y + 20
-                ballVelocity.y *= -1.05
-                ballVelocity.x *= 1.1
+                ballVelocity.y *= -1
             }
         }
     }
