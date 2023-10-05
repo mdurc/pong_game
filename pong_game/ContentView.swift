@@ -10,9 +10,9 @@ import Foundation
 
 struct ContentView: View {
     @State private var ballPosition: CGPoint = CGPoint(x: UIScreen.main.bounds.size.width/2, y: 50)
-    @State private var ballVelocity: CGPoint = CGPoint(x: [-8, -5, 5, 8].randomElement()!, y: 5)
+    @State private var ballVelocity: CGPoint = CGPoint(x: [-0.267, -0.167, 0.167, 0.267].randomElement()!, y: 0.00167)
     @State private var rectPosition: CGPoint = CGPoint(x: UIScreen.main.bounds.size.width/2, y: UIScreen.main.bounds.size.height-400)
-    @State private var gravity: CGFloat = 1.0
+    @State private var gravity: CGFloat = 0.0006
     @State private var score = 0
 
     var body: some View {
@@ -42,7 +42,7 @@ struct ContentView: View {
         .frame(width: UIScreen.main.bounds.size.width)
         .background(Color.black)
         .onAppear {
-            Timer.scheduledTimer(withTimeInterval: 0.03, repeats: true) { _ in
+            Timer.scheduledTimer(withTimeInterval: 0.001, repeats: true) { _ in
                 ballVelocity.y += gravity
                 ballPosition.x += ballVelocity.x
                 ballPosition.y += ballVelocity.y
@@ -50,13 +50,12 @@ struct ContentView: View {
 
                 if ballPosition.y > UIScreen.main.bounds.size.height - 60 {
                     ballPosition.y = UIScreen.main.bounds.size.height - 60
-                    
-                    ballVelocity.y = -39
+                    ballVelocity.y = -1
                     score = 0
                     if (ballVelocity.x > 0){
-                        ballVelocity.x = [5,8].randomElement()!
+                        ballVelocity.x = [0.167, 0.267].randomElement()!
                     }else{
-                        ballVelocity.x = [-5,-8].randomElement()!
+                        ballVelocity.x = [-0.267, -0.167].randomElement()!
                     }
                 }
                 if ballPosition.y < 0 {
@@ -67,8 +66,8 @@ struct ContentView: View {
                     ballPosition.x = 10
                     ballVelocity.x *= -1
                 }
-                if ballPosition.x > UIScreen.main.bounds.size.width - 30 {
-                    ballPosition.x = UIScreen.main.bounds.size.width - 30
+                if ballPosition.x > UIScreen.main.bounds.size.width - 20 {
+                    ballPosition.x = UIScreen.main.bounds.size.width - 20
                     ballVelocity.x *= -1
                 }
                 
@@ -81,11 +80,12 @@ struct ContentView: View {
             if (ballVelocity.y > 0){
                 if (score<9){
                     ballPosition.y = rectPosition.y - 20
-                    ballVelocity.y *= -1.05
-                    ballVelocity.x *= 1.1
+                    ballVelocity.y *= -1.07
+                    ballVelocity.x *= 1.10
                 }else{
                     ballPosition.y = rectPosition.y - 20
-                    ballVelocity.y *= -1
+                    ballVelocity.y *= -1.02
+                    ballVelocity.x *= 1.04
                 }
                 score += 1
             }else{
